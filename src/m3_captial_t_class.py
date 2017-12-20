@@ -2,8 +2,8 @@
 A   CapitalT   class and methods that use the Cross class.
 
 Authors: David Mutchler, Dave Fisher, Valerie Galluzzi, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Caitlin Coverstone.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -14,9 +14,9 @@ def main():
     #   Uncomment only 1 test at a time as you develop your code.
     # --------------------------------------------------------------
 
-    # run_test_simple_t()
-    # run_test_set_colors()
-    # run_test_move_by()
+    run_test_simple_t()
+    run_test_set_colors()
+    run_test_move_by()
     # run_test_clone()
 
 
@@ -134,8 +134,25 @@ class CapitalT(object):
           :type height:   int
           :type letter_thickness:   int
         """
+
+
+        self.h_rect = rg.Rectangle(rg.Point(intersection_center.x + width /
+                                            2, intersection_center.y +
+                                            letter_thickness / 2), rg.Point(
+            intersection_center.x - width / 2, intersection_center.y -
+                                               letter_thickness / 2))
+        self.v_rect = rg.Rectangle(rg.Point(intersection_center.x +
+                                            letter_thickness / 2,
+                                            intersection_center.y -
+                                            letter_thickness / 2,),
+                                   rg.Point(intersection_center.x -
+                                            letter_thickness / 2,
+                                            intersection_center.y + (height -
+                                            letter_thickness / 2)))
+
+
         # --------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   READ the above specification, including the Example.
         #   Implement this method
         #   Note: you will need to also implement attach_to before testing
@@ -159,8 +176,12 @@ class CapitalT(object):
         Type hints:
           :type window: rg.RoseWindow
         """
+
+        self.v_rect.attach_to(window)
+        self.h_rect.attach_to(window)
+
         # --------------------------------------------------------------
-        # TODO: 4.
+        # DONE: 4.
         #   READ the above specification, including the Example.
         #   Implement and test this method by looking at the console and
         #     the graphics window (compare it to simple_t.pdf)
@@ -186,8 +207,15 @@ class CapitalT(object):
           :type fill_color: str
           :type outline_color: str
         """
+
+        self.h_rect.fill_color = fill_color
+        self.v_rect.fill_color = fill_color
+
+        self.h_rect.outline_color = outline_color
+        self.v_rect.outline_color = outline_color
+
         # --------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   READ the above specification, including the Example.
         #   Implement and test this method by uncommenting the appropriate
         #     run_test method in main. Compare the graphics window to
@@ -216,6 +244,28 @@ class CapitalT(object):
           :type dx: int
           :type dy: int
         """
+
+        x1 = self.v_rect.corner_1.x
+        y1 = self.v_rect.corner_1.y
+        x2 = self.v_rect.corner_2.x
+        y2 = self.v_rect.corner_2.y
+
+        x3 = self.h_rect.corner_1.x
+        y3 = self.h_rect.corner_1.y
+        x4 = self.h_rect.corner_2.x
+        y4 = self.h_rect.corner_2.y
+
+        self.v_rect = rg.Rectangle(rg.Point(x1 + dx, y1 + dy), rg.Point(x2 +
+                                                                      dx,
+                                                                      y2 + dy))
+        self.h_rect = rg.Rectangle(rg.Point(x3 + dx, y3 + dy), rg.Point(x4 +
+                                                                       dx,
+                                                                       y4 +
+                                                                       dy))
+
+
+
+
         # --------------------------------------------------------------
         # TODO: 6.
         #   READ the above specification, including the Example.
