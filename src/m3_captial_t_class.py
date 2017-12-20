@@ -17,7 +17,7 @@ def main():
     run_test_simple_t()
     run_test_set_colors()
     run_test_move_by()
-    # run_test_clone()
+    run_test_clone()
 
 
 def run_test_simple_t():
@@ -151,10 +151,6 @@ class CapitalT(object):
                                             intersection_center.y + (height -
                                                                      letter_thickness / 2)))
 
-        self.a = self.h_rect.corner_1
-        self.b = self.h_rect.corner_2
-        self.c = self.v_rect.corner_1
-        self.d = self.v_rect.corner_2
 
 
         # --------------------------------------------------------------
@@ -295,10 +291,20 @@ class CapitalT(object):
           :rtype: CapitalT
         """
 
-        self.v_rect.corner_1 = self.c
-        self.v_rect.corner_2 = self.d
-        self.h_rect.corner_1 = self.a
-        self.h_rect.corner_2 = self.b
+
+        width = self.h_rect.get_upper_right_corner().x - \
+                self.h_rect.get_upper_left_corner().x
+        height = (self.v_rect.get_upper_right_corner().y - \
+                 self.v_rect.get_lower_left_corner().y)*-1/2
+        line_thickness = self.h_rect.get_upper_right_corner().y - \
+                         self.h_rect.get_lower_right_corner().y
+        center = rg.Point(self.h_rect.get_upper_right_corner().x - width / 2,
+                          self.h_rect.get_upper_right_corner().y +
+                          line_thickness / 2)
+
+        t1 = CapitalT(center, width, height, line_thickness)
+        t1.set_colors(self.v_rect.fill_color,self.v_rect.outline_color)
+        return  t1
 
         # --------------------------------------------------------------
         # TODO: 7.
