@@ -29,9 +29,11 @@ def run_test_simple_t():
     window = rg.RoseWindow(600, 400, 'Test 1 - Simple Ts')
     t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
     print("Expected: Point(250.0, 40.0) Point(350.0, 60.0)")
-    print("Actual:  ", t1.h_rect.get_upper_left_corner(), t1.h_rect.get_lower_right_corner())
+    print("Actual:  ", t1.h_rect.get_upper_left_corner(),
+          t1.h_rect.get_lower_right_corner())
     print("Expected: Point(290.0, 40.0) Point(310.0, 240.0)")
-    print("Actual:  ", t1.v_rect.get_upper_left_corner(), t1.v_rect.get_lower_right_corner())
+    print("Actual:  ", t1.v_rect.get_upper_left_corner(),
+          t1.v_rect.get_lower_right_corner())
     t1.attach_to(window)
     t2 = CapitalT(rg.Point(150, 150), 100, 150, 40)
     t2.attach_to(window)
@@ -135,20 +137,24 @@ class CapitalT(object):
           :type letter_thickness:   int
         """
 
-
         self.h_rect = rg.Rectangle(rg.Point(intersection_center.x + width /
                                             2, intersection_center.y +
                                             letter_thickness / 2), rg.Point(
             intersection_center.x - width / 2, intersection_center.y -
-                                               letter_thickness / 2))
+            letter_thickness / 2))
         self.v_rect = rg.Rectangle(rg.Point(intersection_center.x +
                                             letter_thickness / 2,
                                             intersection_center.y -
-                                            letter_thickness / 2,),
+                                            letter_thickness / 2, ),
                                    rg.Point(intersection_center.x -
                                             letter_thickness / 2,
                                             intersection_center.y + (height -
-                                            letter_thickness / 2)))
+                                                                     letter_thickness / 2)))
+
+        self.a = self.h_rect.corner_1
+        self.b = self.h_rect.corner_2
+        self.c = self.v_rect.corner_1
+        self.d = self.v_rect.corner_2
 
 
         # --------------------------------------------------------------
@@ -255,19 +261,13 @@ class CapitalT(object):
         x4 = self.h_rect.corner_2.x
         y4 = self.h_rect.corner_2.y
 
-        self.v_rect = rg.Rectangle(rg.Point(x1 + dx, y1 + dy), rg.Point(x2 +
-                                                                      dx,
-                                                                      y2 + dy))
-        self.h_rect = rg.Rectangle(rg.Point(x3 + dx, y3 + dy), rg.Point(x4 +
-                                                                       dx,
-                                                                       y4 +
-                                                                       dy))
-
-
-
+        self.v_rect.corner_1 = rg.Point(x1 + dx, y1 + dy)
+        self.v_rect.corner_2 = rg.Point(x2 + dx, y2 + dy)
+        self.h_rect.corner_1 = rg.Point(x3 + dx, y3 + dy)
+        self.h_rect.corner_2 = rg.Point(x4 + dx, y4 + dy)
 
         # --------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   READ the above specification, including the Example.
         #   Implement and test this method by uncommenting the appropriate
         #     run_test method in main. Compare the graphics window to
@@ -294,6 +294,12 @@ class CapitalT(object):
         Type hints:
           :rtype: CapitalT
         """
+
+        self.v_rect.corner_1 = self.c
+        self.v_rect.corner_2 = self.d
+        self.h_rect.corner_1 = self.a
+        self.h_rect.corner_2 = self.b
+
         # --------------------------------------------------------------
         # TODO: 7.
         #   READ the above specification, including the Example.
